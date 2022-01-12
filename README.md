@@ -16,11 +16,11 @@ Below is a list of notable changes I made to Dunglas's project.
 - Added lines 17-20 in docker/caddy/Caddyfile, this allows you to reach your db admin utilizing Caddy's auto-issued SSL through a little reverse proxy that sends traffic to the db_admin container. Without this you would need to expose a port from that container and use that to get to the db admin area, and it wouldn't be encrypted. Two small caveats with this, after you log in it kicks back you to your symfony homepage. Just go back to the /dbAdmin/ URL and you'll be logged in. Also, stating the obvious, you can not use any url that uses /dbAdmin/ in your Symfony app, it will not work. And second, the trailing slash is REQUIRED. Like this https://localhost/dbAdmin/ . These are small prices to pay, imo, to get simple out of the box working db admin area that is encrypted. Maybe someone will improve on it one day? But for me it's fine.
 
 To build and start this locally run:
-docker-compose build --pull --no-cache
-docker-compose up
+- docker-compose build --pull --no-cache
+- docker-compose up
 
 I will admit, I’m really new to docker environments. And there’s a couple of things I’ve noticed already. When working locally, the changes you make in your project folder are reflected in the docker container. There's no reason to rebuild or down/up the docker. Also, your updates that are done through 'yarn watch' for webpack/encore are also reflected real time. Something important to keep in mind though. You don't have access to the database server from your IDE or standard shell. Therefore, commands that want connection to the database must be done from the docker php container because it has access to the docker db container. Two examples of what I mean here. First, ‘symfony console make:controller’ will work from either desktop IDE/shell OR inside container shell, because it doesn’t need the db connection. However, ‘symfony console make:entity’ must be done from the container shell.
 
 To build and start on production
-docker-compose build --pull --no-cache
-SERVER_NAME=subdomain.yourDomain.com APP_SECRET=ChangeMe CADDY_MERCURE_JWT_SECRET=ChangeMe docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+- docker-compose build --pull --no-cache
+- SERVER_NAME=subdomain.yourDomain.com APP_SECRET=ChangeMe CADDY_MERCURE_JWT_SECRET=ChangeMe docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
