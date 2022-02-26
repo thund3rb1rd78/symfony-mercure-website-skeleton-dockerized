@@ -7,8 +7,8 @@ services:
       APP_ENV: prod
       APP_SECRET: ${APP_SECRET}
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET}
-      MERCURE_URL: ${CADDY_MERCURE_URL:-https://devtest.griggsdevelopment.com/.well-known/mercure}
-      MERCURE_PUBLIC_URL: https://${SERVER_NAME:-https://devtest.griggsdevelopment.com}/.well-known/mercure
+      MERCURE_URL: ${CADDY_MERCURE_URL:-https://subdomain.domain.com/.well-known/mercure}
+      MERCURE_PUBLIC_URL: https://${SERVER_NAME:-https://subdomain.domain.com}/.well-known/mercure
 
   caddy:
     environment:
